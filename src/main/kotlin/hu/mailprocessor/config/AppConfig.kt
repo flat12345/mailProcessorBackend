@@ -41,7 +41,7 @@ class RuntimeSettings(props: AppProperties) {
     @Volatile var activeProvider: String = props.activeProvider.lowercase()
 }
 
-/** Az /api/** végpontokat X-API-Key fejléccel védi. Ha nincs beállított kulcs, mindent tilt (fail closed). */
+/** Az /api alatti végpontokat X-API-Key fejléccel védi. Ha nincs beállított kulcs, mindent tilt (fail closed). */
 @Component
 class ApiKeyFilter(private val props: AppProperties) : OncePerRequestFilter() {
     override fun shouldNotFilter(request: HttpServletRequest): Boolean = !request.requestURI.startsWith("/api/")
