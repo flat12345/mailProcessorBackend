@@ -11,5 +11,11 @@ import org.springframework.scheduling.annotation.EnableScheduling
 class Application
 
 fun main(args: Array<String>) {
+    // Diagnosztika: melyik adatbázisra próbál csatlakozni (jelszó nélkül)
+    fun env(n: String) = System.getenv(n)?.takeIf { it.isNotBlank() } ?: "(NINCS BEÁLLÍTVA)"
+    println(
+        "DB-CONFIG host=${env("MYSQLHOST")} port=${env("MYSQLPORT")} " +
+            "db=${env("MYSQLDATABASE")} user=${env("MYSQLUSER")} password=${if (System.getenv("MYSQLPASSWORD").isNullOrBlank()) "(NINCS)" else "(beállítva)"}"
+    )
     runApplication<Application>(*args)
 }
