@@ -2,6 +2,7 @@ FROM gradle:8.10-jdk21 AS build
 WORKDIR /app
 COPY build.gradle.kts settings.gradle.kts ./
 COPY src ./src
+RUN echo "== AppConfig.kt ==" && wc -l src/main/kotlin/hu/mailprocessor/config/AppConfig.kt && (grep -rn "/\*" src/main/kotlin | head -20 || true)
 RUN gradle bootJar --no-daemon -x test
 
 FROM eclipse-temurin:21-jre
